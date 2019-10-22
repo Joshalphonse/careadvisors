@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import './Translator.css'
 class Translator extends Component {
 	constructor(props) {
 		super(props)
@@ -43,15 +44,17 @@ class Translator extends Component {
 						<input
 							type="text"
 							name="submittedTexts"
-							value={submittedTexts}
+							value={submittedTexts.toLowerCase()}
 							onChange={this.changeHandler}
-						/>
+												/>
 					</div>
 					
 					<button type="submit">Submit</button>
 				</form>
-        <ul>
+        <ul >
+        <li>
         { this.state.translations.map(translation => <li>{translation}</li>)}
+      </li>
       </ul>
  
         
