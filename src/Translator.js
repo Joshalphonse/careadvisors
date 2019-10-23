@@ -7,7 +7,9 @@ class Translator extends Component {
 
 		this.state = {
       submittedTexts:'',
-      translations:[]
+	  translations:[],
+	  output:''
+	  
 		}
 	}
 
@@ -34,6 +36,30 @@ class Translator extends Component {
       
 	}
 
+
+	verify = e => {
+		e.preventDefault()
+		console.log(this.state)
+		axios
+      .post('https://72exx40653.execute-api.us-east-1.amazonaws.com/prod/confirmtranslation', {
+        textToTranslate: this.state.submittedTexts
+  })
+			.then(response => {
+        this.setState({translations: response.data})
+        
+        console.log(response.data)
+        
+			})
+			.catch(error => {
+				console.log(error)
+      })
+      
+	}
+
+	processText= inputText => {
+
+	}
+
 	render() {
     const { submittedTexts } = this.state
     
@@ -51,11 +77,17 @@ class Translator extends Component {
 					
 					<button type="submit">Submit</button>
 				</form>
-        <ul >
-        <li>
-        { this.state.translations.map(translation => <li>{translation}</li>)}
-      </li>
-      </ul>
+        
+        <p>
+        { this.state.translations.map(s => {
+    let splitDorb = s.split(/([A-Za-z])/)
+    let sum = parseInt(splitDorb[0]) + parseInt(splitDorb[2])
+    return splitDorb[1] + 'yo' + sum
+  }).join('')
+  
+}
+      </p>
+      
  
         
 			</div>
