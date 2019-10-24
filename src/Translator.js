@@ -44,28 +44,6 @@ class Translator extends Component {
       });
   };
 
-  verify = e => {
-    e.preventDefault();
-    console.log(this.state);
-    axios
-      .post(
-        "https://72exx40653.execute-api.us-east-1.amazonaws.com/prod/confirmtranslation",
-        {
-          textToTranslate: this.state.submittedTexts
-        }
-      )
-      .then(response => {
-        this.setState({ translations: response.data });
-
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  processText = inputText => {};
-
   render() {
     console.log(this.state.translations);
     const { submittedTexts } = this.state;
