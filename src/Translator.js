@@ -7,8 +7,7 @@ class Translator extends Component {
 
     this.state = {
       submittedTexts: "",
-      translations: [],
-      output: ""
+      translations: []
     };
   }
 
@@ -38,7 +37,15 @@ class Translator extends Component {
         });
 
         console.log(response.data);
+      });
+    axios
+      .post("http://localhost:3000/api/v1/gorbyoyo", {
+        word: this.state.translations
       })
+      .then(response => {
+        console.log(response);
+      })
+
       .catch(error => {
         console.log(error);
       });
