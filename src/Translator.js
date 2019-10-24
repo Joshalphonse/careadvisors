@@ -67,12 +67,14 @@ class Translator extends Component {
   processText = inputText => {};
 
   render() {
+    console.log(this.state.translations);
     const { submittedTexts } = this.state;
 
     return (
       <div>
         <form onSubmit={this.submitHandler}>
           <div>
+            <h1 class="inputText">ENGLISH TO GORBYOYO:</h1>
             <input
               type="text"
               name="submittedTexts"
@@ -83,8 +85,7 @@ class Translator extends Component {
 
           <button type="submit">Submit</button>
         </form>
-
-        <p>{this.state.translations}</p>
+        <p class="gorboyo">{this.state.translations}</p>
       </div>
     );
   }
