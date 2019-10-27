@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Translator.css";
+import WordContainer from "./WordContainer.js";
+
 class Translator extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,11 @@ class Translator extends Component {
       translations: [],
       output: ""
     };
+  }
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/gorbyoyo")
+      .then(resp => resp.json)
+      .then(translations => this.setState({ translations }));
   }
 
   changeHandler = e => {
@@ -50,6 +57,9 @@ class Translator extends Component {
   render() {
     console.log(this.state.translations);
     const { submittedTexts } = this.state;
+    // const desiredWord = this.state.translations.map(p =>
+    //   p.name.includes(this.state.searchTerm)
+    // );
 
     return (
       <div>
