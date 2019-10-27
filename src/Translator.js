@@ -7,7 +7,8 @@ class Translator extends Component {
 
     this.state = {
       submittedTexts: "",
-      translations: []
+      translations: [],
+      output: ""
     };
   }
 
@@ -18,6 +19,7 @@ class Translator extends Component {
   submitHandler = e => {
     e.preventDefault();
     console.log(this.state);
+
     axios
       .post(
         "https://72exx40653.execute-api.us-east-1.amazonaws.com/prod/translateEnglishToAlien",
@@ -36,18 +38,12 @@ class Translator extends Component {
             .join("")
         });
 
-        console.log(response.data);
-      });
-    axios
-      .post("http://localhost:3000/api/v1/gorbyoyo", {
-        word: this.state.translations
+        return axios.post("http://localhost:3000/api/v1/gorbyoyo", {
+          word: this.state.translations
+        }); // using response.data
       })
       .then(response => {
-        console.log(response);
-      })
-
-      .catch(error => {
-        console.log(error);
+        console.log("Response", response);
       });
   };
 
