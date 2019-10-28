@@ -1,22 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Translator.css";
-import WordContainer from "./WordContainer.js";
 
 class Translator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      submittedTexts: "",
-      translations: [],
+      submittedTexts: "i am not selling knives",
+      translations: "",
       output: ""
     };
   }
   componentDidMount() {
     fetch("http://localhost:3000/api/v1/gorbyoyo")
-      .then(resp => resp.json)
-      .then(translations => this.setState({ translations }));
+      .then(resp => resp.json())
+      .then(wordArray =>
+        this.setState({ translations: wordArray[wordArray.length - 1].word })
+      );
+
+    // fetch to translation API
+
+    // fetch to verification API
+
+    // If response is valid, setState of translations to the response and post to database
   }
 
   changeHandler = e => {
