@@ -18,12 +18,6 @@ class Translator extends Component {
       .then(wordArray =>
         this.setState({ translations: wordArray[wordArray.length - 1].word })
       );
-
-    // fetch to translation API
-
-    // fetch to verification API
-
-    // If response is valid, setState of translations to the response and post to database
   }
 
   changeHandler = e => {
@@ -52,21 +46,29 @@ class Translator extends Component {
             .join("")
         });
 
+        return axios.post(
+          "https://72exx40653.execute-api.us-east-1.amazonaws.com/prod/confirmtranslation",
+          {
+            textToVerify: this.state.translations
+          }
+        );
+      })
+      .then(response => {
+        console.log(response, "resp");
+        if (response.data === "Success") {
+          this.setState({ translations: this.state.translations });
+        } else if (response.data === "Invalid translation") {
+          this.setState({ translations: "invalid" });
+        }
         return axios.post("http://localhost:3000/api/v1/gorbyoyo", {
           word: this.state.translations
         }); // using response.data
-      })
-      .then(response => {
-        console.log("Response", response);
       });
   };
 
   render() {
     console.log(this.state.translations);
     const { submittedTexts } = this.state;
-    // const desiredWord = this.state.translations.map(p =>
-    //   p.name.includes(this.state.searchTerm)
-    // );
 
     return (
       <div>
@@ -83,7 +85,14 @@ class Translator extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        <p class="gorboyo">{this.state.translations}</p>
+        <p className="gorboyo">
+          {this.state.translations !==
+          "myo214eyo198qyo222ryo224syo226xyo236wyo234iyo206pyo220pyo220myo214ryo224kyo210oyo218ryo224myo214ayo240iyo206wyo234" ? (
+            <p>invalid translation</p>
+          ) : (
+            <p>{this.state.translations}</p>
+          )}
+        </p>
       </div>
     );
   }
